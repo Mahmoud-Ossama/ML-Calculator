@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Hours Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+        <h1>Study Hours Grade Predictor</h1>
+        <div class="explanation">
+            <p>This tool predicts a student's grade based on their study hours using Linear Regression.</p>
+            <div class="example-box">
+                <h3>Example Format:</h3>
+                <p><strong>Study Hours (X):</strong> 2,4,6,8,10</p>
+                <p><strong>Grades (y):</strong> 65,70,80,85,90</p>
+                <p><strong>Predict grade for hours:</strong> 7</p>
+            </div>
+        </div>
+        <form method="POST" action="{{ url_for('linear_calculate') }}">
+            <div class="input-group">
+                <label>Study Hours (comma-separated):</label>
+                <input type="text" name="train_x" required placeholder="2,4,6,8,10">
+                <small class="help-text">Enter the number of hours studied</small>
+            </div>
+            <div class="input-group">
+                <label>Grades (comma-separated):</label>
+                <input type="text" name="train_y" required placeholder="65,70,80,85,90">
+                <small class="help-text">Enter the corresponding grades (0-100)</small>
+            </div>
+            <div class="input-group">
+                <label>Predict grade for hours:</label>
+                <input type="text" name="test_x" required placeholder="7">
+                <small class="help-text">Enter study hours to predict the grade</small>
+            </div>
+            <button type="submit">Predict Grade</button>
+        </form>
+        {% if result %}
+        <div class="result {% if 'Error' in result %}error{% endif %}">
+            <h3>Prediction Result:</h3>
+            <p>{{ result }}</p>
+            {% if r2_score %}
+            <p>Model Accuracy (R² Score): {{ r2_score }}</p>
+            <small>R² Score ranges from 0 to 1, where 1 indicates perfect prediction</small>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Classification Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+        <h1>Health Classification Calculator</h1>
+        <div class="explanation">
+            <p>This tool classifies a person's health status based on height (cm) and weight (kg) using Gaussian Naive Bayes.</p>
+            <div class="example-box">
+                <h3>Example Format:</h3>
+                <p><strong>Training Data (height,weight for each person):</strong></p>
+                <p>165,50;170,55;175,85;180,90</p>
+                <p><strong>Labels (0 for underweight, 1 for overweight):</strong></p>
+                <p>0,0,1,1</p>
+                <p><strong>Test Data (height,weight to classify):</strong></p>
+                <p>172,88</p>
+            </div>
+        </div>
+        <form method="POST" action="{{ url_for('calculate') }}">
+            <div class="input-group">
+                <label>Training Data (height,weight pairs; semicolon-separated):</label>
+                <input type="text" name="train_x" required placeholder="165,50;170,55;175,85;180,90">
+                <small class="help-text">Enter height(cm),weight(kg) pairs for multiple people</small>
+            </div>
+            <div class="input-group">
+                <label>Health Labels (0=underweight, 1=overweight):</label>
+                <input type="text" name="train_y" required placeholder="0,0,1,1">
+                <small class="help-text">Enter 0 for underweight, 1 for overweight for each person</small>
+            </div>
+            <div class="input-group">
+                <label>Test Data (height,weight to classify):</label>
+                <input type="text" name="test_x" required placeholder="172,88">
+                <small class="help-text">Enter height and weight to classify</small>
+            </div>
+            <button type="submit">Classify Health Status</button>
+        </form>
+        {% if result %}
+        <div class="result {% if 'Error' in result %}error{% endif %}">
+            <h3>Classification Result:</h3>
+            <p>{{ result }}</p>
+            <small>
+                Note: This is a simplified example. Please consult healthcare professionals for actual health advice.
+            </small>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

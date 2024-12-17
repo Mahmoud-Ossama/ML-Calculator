@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+        <h1>Sentiment Analysis</h1>
+        <div class="explanation">
+            <p>This tool analyzes text sentiment using Naive Bayes classification.</p>
+            <div class="example-box">
+                <h3>Example Format:</h3>
+                <p><strong>Training Texts (semicolon-separated):</strong></p>
+                <p>great product, highly recommend;terrible service, disappointed;amazing quality;waste of money</p>
+                <p><strong>Labels (0=negative, 1=positive):</strong></p>
+                <p>1,0,1,0</p>
+                <p><strong>Test Text:</strong></p>
+                <p>excellent product quality</p>
+            </div>
+        </div>
+        <form method="POST" action="{{ url_for('nlp_calculate') }}">
+            <div class="input-group">
+                <label>Training Texts (semicolon-separated):</label>
+                <input type="text" name="train_texts" required 
+                    placeholder="great product, highly recommend;terrible service, disappointed;amazing quality;waste of money">
+                <small class="help-text">Enter multiple review texts, separated by semicolons</small>
+            </div>
+            <div class="input-group">
+                <label>Sentiment Labels (0=negative, 1=positive):</label>
+                <input type="text" name="train_y" required placeholder="1,0,1,0">
+                <small class="help-text">Enter 0 for negative, 1 for positive sentiment</small>
+            </div>
+            <div class="input-group">
+                <label>Test Text:</label>
+                <input type="text" name="test_text" required placeholder="excellent product quality">
+                <small class="help-text">Enter the text to analyze</small>
+            </div>
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+        {% if result %}
+        <div class="result {% if 'Error' in result %}error{% endif %}">
+            <h3>Analysis Result:</h3>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

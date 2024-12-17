@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Learning Calculator - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to ML Calculator</h1>
+        <div class="intro">
+            <p>This project implements various machine learning algorithms for classification and regression tasks. 
+            Choose one of the available methods below:</p>
+        </div>
+        
+        <div class="methods-grid">
+            <div class="method-card">
+                <h2>Gaussian Naive Bayes</h2>
+                <p>Best suited for continuous data that follows a normal distribution.</p>
+                <p>Use cases:</p>
+                <ul>
+                    <li>Height/Weight classification</li>
+                    <li>Sensor measurements</li>
+                    <li>Continuous feature classification</li>
+                </ul>
+                <a href="{{ url_for('gaussian') }}" class="method-button">Use Gaussian NB</a>
+            </div>
+            
+            <div class="method-card">
+                <h2>Linear Regression</h2>
+                <p>Predicts continuous values based on linear relationships.</p>
+                <p>Use cases:</p>
+                <ul>
+                    <li>Price prediction</li>
+                    <li>Sales forecasting</li>
+                    <li>Trend analysis</li>
+                </ul>
+                <a href="{{ url_for('linear_regression') }}" class="method-button">Use Linear Regression</a>
+            </div>
+            
+            <div class="method-card">
+                <h2>Natural Language Processing</h2>
+                <p>Text analysis and classification tasks.</p>
+                <p>Use cases:</p>
+                <ul>
+                    <li>Sentiment analysis</li>
+                    <li>Text classification</li>
+                    <li>Review analysis</li>
+                </ul>
+                <a href="{{ url_for('nlp') }}" class="method-button">Use Text Analysis</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
