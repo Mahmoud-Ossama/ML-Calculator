@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mathematical Problem Solver</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gaussian Naive Bayes Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Choose a Mathematical Problem to Solve</h1>
-        <div class="problem-links">
-            <a href="{{ url_for('gaussian') }}" class="problem-button">Gaussian Naive Bayes Classifier</a>
-            <a href="{{ url_for('linear') }}" class="problem-button">Linear Regression</a>
-            <a href="{{ url_for('naive_bayes') }}" class="problem-button">Naïve Bayes Text Classifier</a>
+        <h1>Gaussian Naive Bayes Calculator</h1>
+        <form method="POST" action="/calculate">
+            <div class="input-group">
+                <label>Training Data X (comma-separated rows, semicolon between rows):</label>
+                <input type="text" name="train_x" required placeholder="1,2,3;4,5,6">
+            </div>
+            <div class="input-group">
+                <label>Training Labels y (comma-separated):</label>
+                <input type="text" name="train_y" required placeholder="0,1">
+            </div>
+            <div class="input-group">
+                <label>Test Data (comma-separated):</label>
+                <input type="text" name="test_x" required placeholder="2,3,4">
+            </div>
+            <button type="submit">Calculate Prediction</button>
+        </form>
+        {% if result %}
+        <div class="result {% if 'Error' in result %}error{% endif %}">
+            <h3>Prediction Result:</h3>
+            <p>{{ result }}</p>
         </div>
+        {% endif %}
     </div>
 </body>
 </html>
