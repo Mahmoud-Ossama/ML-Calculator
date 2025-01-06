@@ -27,7 +27,7 @@ A Flask-based web application implementing three different machine learning clas
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Mahmoud-Ossama/ML-Calculator.git
 
 # Install required packages
 pip install flask numpy
